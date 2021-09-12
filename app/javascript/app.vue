@@ -8,7 +8,7 @@
     <div>
       <input v-model="title" placeholder="title">
       <input v-model="desc" placeholder="desc">
-      <button v-on:click="addMemo">メモを追加</button>
+      <button @click="addMemo">メモを追加</button>
     </div>
   </div>
 </template>
@@ -33,6 +33,15 @@ export default {
       .then(response => (
         this.memos = response.data
       ))
+    },
+    addMemo: function() {
+      axios.post('/api/memos',{
+        title: this.title,
+        desc: this.desc
+      })
+      .then(response => ( // 通信に成功した時
+        this.setMemo()
+      ));
     }
   }
 }
